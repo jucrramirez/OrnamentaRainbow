@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "ornamentarainbow"
+version = "0.1.0"
+description = "Ornamenta Project Code"
+authors = ["JManuel Ramirez"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pydantic = "1.10.8"
+requests = "2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
