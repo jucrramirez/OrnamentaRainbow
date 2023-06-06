@@ -39,7 +39,6 @@ class WeatherForecasting:
     def parsingData(self):
 
         api_result = self.apiConnection()
-        print(api_result.json())
 
         print("Weather Forecast")
         print("================")
@@ -48,7 +47,9 @@ class WeatherForecasting:
         for daily_result in results:
             date = daily_result['startTime'][0:10]
             temp = round(daily_result['values']['temperature'])
-            print("On", date, "at", f"{datetime.now().time()}", "it will be", temp, "ºC")
+            cloudDensity = round(daily_result['values']['cloudCover'])
+
+            print("On", date, "at", f"{datetime.now().time()}", "it will be", temp, "ºC", f"and the cloud cover percentage will be {cloudDensity}%")
 
 
 forecast = WeatherForecasting(1.0, 2.0)
