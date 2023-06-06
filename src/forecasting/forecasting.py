@@ -29,8 +29,6 @@ class WeatherForecasting:
             "startTime": "now",
             "apikey": self.secretKey
         }
-        
-        print(datetime.now())
 
         response = requests.request("GET", self.APIurl, params=querystring)
 
@@ -49,7 +47,7 @@ class WeatherForecasting:
             temp = round(daily_result['values']['temperature'])
             cloudDensity = round(daily_result['values']['cloudCover'])
 
-            print("On", date, "at", f"{datetime.now().time()}", "it will be", temp, "ºC", f"and the cloud cover percentage will be {cloudDensity}%")
+            print("On", date, "at", f"{datetime.now().time()}", "it will be", f"{temp}ºC", f"and the cloud cover percentage will be {cloudDensity}%")
 
 
 forecast = WeatherForecasting(1.0, 2.0)
