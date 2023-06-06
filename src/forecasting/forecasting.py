@@ -4,6 +4,7 @@ from pydantic.dataclasses import dataclass
 import requests
 
 # Built-in libraries
+from datetime import datetime
 import os
 
 
@@ -19,23 +20,26 @@ class WeatherForecasting:
         self.secretKey = os.environ.get("TOMORROW_KEY")
         self.APIurl = os.environ.get("TOMORROW_URL")
 
-    
     def apiConnection(self):
         querystring = {
-            "location":"33, -84",
-            "fields":["temperature", "cloudCover"],
-            "units":"metric",
-            "timesteps":"5m",
-            "apikey":self.secretKey
+            "location": "48.888759, 8.705553",
+            "fields": ["temperature", "cloudCover"],
+            "units": "metric",
+            "timesteps": "current",
+            "startTime": "now",
+            "apikey": self.secretKey
         }
+        
+        print(datetime.now())
 
         response = requests.request("GET", self.APIurl, params=querystring)
 
         return response
-        
+
     def parsingData(self):
 
         api_result = self.apiConnection()
+        print(api_result.json())
 
         print("Weather Forecast")
         print("================")
@@ -44,7 +48,8 @@ class WeatherForecasting:
         for daily_result in results:
             date = daily_result['startTime'][0:10]
             temp = round(daily_result['values']['temperature'])
-            print("On",date,"it will be", temp, "F")
+            print("On", date, "at", f"{datetime.now().time()}", "it will be", temp, "ºC")
+
 
 forecast = WeatherForecasting(1.0, 2.0)
 forecast.parsingData()
