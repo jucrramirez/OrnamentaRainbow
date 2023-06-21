@@ -1,6 +1,7 @@
 # Third-party libraries
 from dotenv import load_dotenv
 from pydantic.dataclasses import dataclass
+from suncalc import get_position, get_times
 import requests
 
 # Built-in libraries
@@ -49,6 +50,12 @@ class WeatherForecasting:
 
             print("On", date, "at", f"{datetime.now().time()}", "it will be", f"{temp}ºC", f"and the cloud cover percentage will be {cloudDensity}%")
 
+    def sunPosition(self, date):
 
+        return get_position(date, self.longitude, self.latitude)
+    
 forecast = WeatherForecasting(1.0, 2.0)
 forecast.parsingData()
+
+sunposition = forecast.sunPosition(datetime.now())
+print(sunposition)
