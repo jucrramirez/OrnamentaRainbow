@@ -3,11 +3,13 @@ from dotenv import load_dotenv
 
 # Built-in libraries
 from datetime import datetime, timedelta, timezone
-import os
+import json, os
 
 # Modules
 from forecasting.weatherapp import WeatherForecasting
 from forecasting.dateformat import format_date, return_datetime
+from misc.evaluate import get_probability
+
 
 # LOCATION CONSTANTS
 _ = load_dotenv()
@@ -55,4 +57,9 @@ if __name__ == '__main__':
     )
     
     forecasting_data_end = forecasting_end.get_forecasting()
+    cloudiness = float(forecasting_data_start["clouds"]["all"])
+
+    probability_based_on_cloudiness = get_probability(cloudiness)
     
+    print(probability_based_on_cloudiness)
+    #print(json.dumps(forecasting_data_start, indent=4))
