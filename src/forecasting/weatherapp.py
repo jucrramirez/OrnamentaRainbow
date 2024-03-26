@@ -4,14 +4,13 @@ from pydantic.dataclasses import dataclass
 import requests
 
 # Built-in libraries
-from datetime import datetime, timedelta, timezone
-import os
+from datetime import datetime
+import os, time
 
 @dataclass
 class WeatherForecasting:
     latitude: float
     longitude: float
-    time: datetime
 
     def __post_init__(self):
         
@@ -21,17 +20,13 @@ class WeatherForecasting:
         self.secretKey = os.environ.get("OPENWEATHERMAP_KEY")
         self.APIurl = os.environ.get("OPENWEATHERMAP_URL")
 
-    def __post_init_post_parse__(self):
-
-        self.time_UNIX = int(self.time.timestamp())
-
     def __api_connection__(self):
 
         querystring = {
             'lat': self.latitude,
             'lon': self.longitude,
             'appid': self.secretKey, 
-            'dt': self.time_UNIX,
+            'cnt': 16,
             'timezone': 'utc',
             "units": "metric"
         }
